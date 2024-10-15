@@ -4,10 +4,12 @@ use std::net::{TcpListener, TcpStream};
 use std::{fs, thread, time::Duration};
 
 fn main() {
-    let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let port = 7878;
+    let listener = TcpListener::bind(format!("127.0.0.1:{}", port)).unwrap();
 
     let pool = ThreadPool::new(5);
 
+    println!("HTTP server start post:{}", port);
     for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
