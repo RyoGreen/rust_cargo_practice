@@ -8,7 +8,7 @@ fn main() {
 
     let pool = ThreadPool::new(5);
 
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
 
         pool.execute(|| {
