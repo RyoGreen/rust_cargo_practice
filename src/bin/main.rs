@@ -20,6 +20,9 @@ fn main() {
     println!("Shutting down server")
 }
 
+const RESPONSE_STATUAS_OK: &str = "HTTP/1.1 200 OK";
+const RESPONSE_STATUAS_NOT_FOUND: &str = "HTTP/1.1 404 Not Found";
+
 fn handle_connection(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
     if stream.read(&mut buffer).is_err() {
@@ -30,12 +33,12 @@ fn handle_connection(mut stream: TcpStream) {
     let sleep = b"GET /sleep HTTP/1.1\r\n";
 
     let (status_line, filename) = if buffer.starts_with(get) {
-        ("HTTP/1.1 200 OK", "index.html")
+        (RESPONSE_STATUAS_OK, "index.html")
     } else if buffer.starts_with(sleep) {
         thread::sleep(Duration::from_secs(10));
-        ("HTTP/1.1 200 OK", "index.html")
+        (RESPONSE_STATUAS_OK, "index.html")
     } else {
-        ("HTTP/1.1 404 Not Found", "404.html")
+        (RESPONSE_STATUAS_NOT_FOUND, "404.html")
     };
 
     let contents = fs::read_to_string(filename).unwrap();
