@@ -1,10 +1,11 @@
 use std::fs::{File, OpenOptions};
 use std::io::{Read, Result, Write};
 
-fn merge_chunks(chunk_files: Vec<String>, output_file: &str) -> Result<()> {
+pub fn merge_chunks(chunk_files: Vec<String>, output_file: &str) -> Result<()> {
     let mut output = OpenOptions::new()
         .create(true)
         .write(true)
+        .truncate(true)
         .open(output_file)?;
 
     for chunk_file in chunk_files {
