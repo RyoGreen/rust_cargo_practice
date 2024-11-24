@@ -12,7 +12,7 @@ fn main() -> std::io::Result<()> {
     let target_size = 1024;
 
     let mut written = 0;
-    let content = "This is a sample text for generating a large file. ";
+    let content = "This is a sample text for generating a large file. \n";
 
     while written < target_size {
         writer.write_all(content.as_bytes())?;
