@@ -7,18 +7,18 @@ const CHUNK_SIZE: usize = 1024;
 const OUTPUT_DIR: &str = "output_chunks";
 
 pub struct FileInfo {
-    hash: String,
-    file_name: String,
-    updated_use_address: String,
-    file_chunk: Vec<FileChunk>,
+    pub hash: String,
+    pub file_name: String,
+    pub updated_use_address: String,
+    pub file_chunk: Vec<FileChunk>,
 }
 
 pub struct FileChunk {
-    file_name: String,
-    chunk_hash: String,
+    pub file_name: String,
+    pub chunk_hash: String,
 }
 
-pub fn split_file(input_file: &str, updated_user_address: &str) -> Result<(FileInfo)> {
+pub fn split_file(input_file: &str, updated_user_address: &str) -> Result<FileInfo> {
     let input_path = Path::new(input_file);
     let file_extension = input_path
         .extension()
